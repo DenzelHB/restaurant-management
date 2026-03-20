@@ -3,17 +3,15 @@ package com.denzel.system;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = {
-        "com.denzel"   // ← couvre tout : com.denzel.entity, com.denzel.system, etc.
-})
+@SpringBootApplication
 @EntityScan(basePackages = {
-        "com.denzel.entity"    // ← package exact visible dans l'arborescence
+        "com.denzel.system.entity"
 })
 @EnableJpaRepositories(basePackages = {
-        "com.denzel.system",
-        "com.denzel.entity"
+        "com.denzel.system.repository"
 })
 public class SystemApplication {
 

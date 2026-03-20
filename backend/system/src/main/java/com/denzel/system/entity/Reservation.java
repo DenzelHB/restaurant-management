@@ -1,5 +1,6 @@
-package com.denzel.entity;
+package com.denzel.system.entity;
 
+import com.denzel.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Reservation {
+public class Reservation extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

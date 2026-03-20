@@ -3,6 +3,7 @@ package com.denzel.base;
 import com.denzel.exception.handler.CustomHttpRequestResponse;
 import com.denzel.utils.CustomHttpStatus;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @Package com.denzel.base
  **/
 @RequiredArgsConstructor
-public class BaseController <ENTITY extends BaseEntity, ID extends Serializable> {
+public abstract class BaseController <ENTITY extends BaseEntity, ID extends Serializable> {
 
     private final BaseService<ENTITY, ID> baseService;
 
@@ -52,4 +53,5 @@ public class BaseController <ENTITY extends BaseEntity, ID extends Serializable>
     }
 
 
+    public abstract CustomHttpRequestResponse<?> findAll(HttpServletRequest request, HttpServletResponse response);
 }

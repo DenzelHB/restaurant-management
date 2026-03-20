@@ -1,11 +1,10 @@
-package com.denzel.entity;
+package com.denzel.system.entity;
 
 import com.denzel.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.security.Permission;
 import java.util.HashSet;
 import java.util.Set;
 

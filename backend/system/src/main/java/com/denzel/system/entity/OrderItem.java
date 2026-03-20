@@ -1,4 +1,4 @@
-package com.denzel.entity;
+package com.denzel.system.entity;
 
 import com.denzel.base.BaseEntity;
 import jakarta.persistence.*;
@@ -6,7 +6,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.security.Permission;
 
 /**
  * @creation 28/02/2026 01:51
