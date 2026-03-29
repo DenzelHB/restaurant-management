@@ -1,6 +1,7 @@
 package com.denzel.system.securtity.dto;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @Package com.denzel.system.securtity.dto
  **/
 @Builder
+@Getter
 public class LoginResponse {
     Long id;
     String username;

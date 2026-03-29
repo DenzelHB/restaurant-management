@@ -1,6 +1,10 @@
 package com.denzel.system.securtity.jwt;
 
+import com.denzel.system.securtity.constants.SecurityConstants;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.security.Key;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,8 +22,7 @@ import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.denzel.system.securtity.constants.SecurityConstants.CLAIM_KEY_AUTHORITIES;
-import static com.denzel.system.securtity.constants.SecurityConstants.JWT_SECRET;
+
 
 /**
  * @creation 11/03/2026 22:15
@@ -26,9 +30,14 @@ import static com.denzel.system.securtity.constants.SecurityConstants.JWT_SECRET
  * @Package com.denzel.system.securtity.jwt
  **/
 @Component
-public class TokenProvider implements Serializable {
+public class TokenProvider implements InitializingBean {
+    private Key signingKey;
     private JwtParser jwtParser;
+    private final SecurityConstants securityConstants;
 
+    public TokenProvider(SecurityConstants securityConstants) {
+        this.securityConstants = securityConstants;
+    }
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -57,8 +66,8 @@ public class TokenProvider implements Serializable {
         final String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(","));
 
         return Jwts.builder().setSubject(authentication.getName())
-                .claim(CLAIM_KEY_AUTHORITIES,authorities)
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .claim(securityConstants.getClaimKeyAuthorities(),authorities)
+                .signWith(SignatureAlgorithm.HS512, securityConstants.getJwtSecret())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(5)))
                 .compact();
@@ -73,17 +82,27 @@ public class TokenProvider implements Serializable {
 
     UsernamePasswordAuthenticationToken getAuthentication(final String token, final Authentication existingAuth, final UserDetails userDetails) {
 
-        final JwtParser jwtParser = Jwts.parser().setSigningKey(JWT_SECRET);
+        final JwtParser jwtParser = Jwts.parser().setSigningKey(securityConstants.getJwtSecret());
 
         final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
 
         final Claims claims = claimsJws.getBody();
 
         final Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(CLAIM_KEY_AUTHORITIES).toString().split(","))
+                Arrays.stream(claims.get(securityConstants.getClaimKeyAuthorities()).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
         return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        byte[] keyBytes = Decoders.BASE64.decode(securityConstants.getJwtSecret());
+        this.signingKey = Keys.hmacShaKeyFor(keyBytes);
+        jwtParser = Jwts.parserBuilder()
+                .setSigningKey(signingKey)
+                .build();
+
     }
 }

@@ -2,6 +2,7 @@ package com.denzel.system.repository;
 
 import com.denzel.base.BaseRepository;
 import com.denzel.system.entity.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -13,7 +14,8 @@ import java.util.Optional;
  **/
 @Repository
 public interface UserRepository extends BaseRepository<User, Long> {
-    Optional<User> findByEmail(String username);
+
+    Optional <User> findByEmail(String email);
 
     Boolean existsByEmail(String email);
 

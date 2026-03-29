@@ -18,11 +18,12 @@ import { UsersData } from './common/data/user-data';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, NativeDateAdapter } from '@angular/material/core';
 
 import { progressInterceptor } from 'ngx-progressbar/http';
+import {authInterceptor} from "./common/interceptor/auth.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     // provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideHttpClient(withFetch(), withInterceptors([progressInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([progressInterceptor, authInterceptor])),
     provideRouter(
       routes,
       withViewTransitions(),

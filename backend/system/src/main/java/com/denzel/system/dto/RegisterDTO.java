@@ -8,7 +8,7 @@ import lombok.Data;
  * @Package com.denzel.system.dto
  **/
 @Data
-public class RegisterParam {
+public class RegisterDTO {
     private String firstName;
     private String lastName;
     private String email;

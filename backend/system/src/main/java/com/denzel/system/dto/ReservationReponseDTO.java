@@ -1,28 +1,20 @@
-package com.denzel.system.entity;
+package com.denzel.system.dto;
 
-import com.denzel.base.BaseEntity;
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- * @creation 28/02/2026 02:00
+ * @creation 22/03/2026 23:44
  * @Author AMEDE NESTOR HABA (Denzel)
- * @Package com.denzel.entity
+ * @Package com.denzel.system.dto
  **/
-@Entity
-@Table(name="reservation")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
-public class Reservation extends BaseEntity {
+public class ReservationReponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private LocalDate reservationDate;

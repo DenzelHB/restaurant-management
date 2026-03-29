@@ -11,5 +11,6 @@ public class RestConstant {
         public static final String RESOURCE_AUTH = "/auth";
         public static final String RESOURCE_ROLE = "/role";
         public static final String RESOURCE_USER = "/user";
+        public static final String RESOURCE_RESERVATION = "/reservations";
 
 }

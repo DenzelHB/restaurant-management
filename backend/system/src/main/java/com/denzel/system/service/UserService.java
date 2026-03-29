@@ -1,14 +1,14 @@
 package com.denzel.system.service;
 
 import com.denzel.base.BaseService;
-import com.denzel.system.dto.PasswordUpdateRequest;
-import com.denzel.system.dto.RegisterParam;
-import com.denzel.system.dto.RenitialiazePasswordRequest;
-import com.denzel.system.dto.UpdatePhoneRequest;
+import com.denzel.exception.BadRequestException;
+import com.denzel.system.dto.PasswordUpdateDTO;
+import com.denzel.system.dto.RegisterDTO;
+import com.denzel.system.dto.RenitialiazePasswordDTO;
+import com.denzel.system.dto.UpdatePhoneDTO;
 import com.denzel.system.entity.User;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,19 +18,19 @@ import java.util.Optional;
  **/
 public interface UserService extends BaseService<User, Long> {
 
-    void createUser(RegisterParam param) throws RuntimeException;
+    void createUser(RegisterDTO param) throws BadRequestException;
 
     void UpdateUser(User user);
 
-    Optional<User>  findUserByEmail(String email) throws RuntimeException;
+   Optional<User>  findUserByEmail(String email) throws RuntimeException;
 
-    void updatePassword(PasswordUpdateRequest request, String username);
+    void updatePassword(PasswordUpdateDTO request, String username);
 
     void updateUsername(String username, String email);
 
-    void updatePhone(String username, UpdatePhoneRequest request);
+    void updatePhone(String username, UpdatePhoneDTO request);
 
-    void renitialiazePassword(RenitialiazePasswordRequest request);
+    void renitialiazePassword(RenitialiazePasswordDTO request);
 
     void sendCredentialToUser(String email, String password) throws IOException;
 

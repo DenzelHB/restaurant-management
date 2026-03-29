@@ -16,6 +16,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 /**
  * @creation 02/02/2026 22:28
@@ -44,13 +47,21 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configure(http))
-                .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(List.of("http://localhost:4200"));
+                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"));
+                    config.setAllowedHeaders(List.of("*"));
+                    config.setAllowCredentials(true);
+
+                    return config;
+                }))                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(
-                        "/index.html", "/",
+                                        "/index.html",
+                                        "/restaurant/api/v1/reservations/create-reservation",
                                         "/restaurant/api/v1/user/create-user",
-                                        "/xxxx/api/v1/auth/**",
+                                        "/restaurant/api/v1/auth/login", "/restaurant/api/v1/auth/**",
                         "/**/*.js", "/**/*.html", "/**/*.css",
                         "/**/*.svg", "/**/*.ico", "/**/*.woff",
                         "/**/*.woff2", "/**/*.ttf"

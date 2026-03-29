@@ -19,15 +19,14 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class Role extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EqualsAndHashCode.Include
+    private Long id;
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users  = new HashSet<>();
 }

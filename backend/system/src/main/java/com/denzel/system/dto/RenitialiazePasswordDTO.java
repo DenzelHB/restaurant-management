@@ -3,12 +3,12 @@ package com.denzel.system.dto;
 import lombok.Data;
 
 /**
- * @creation 19/03/2026 23:20
+ * @creation 19/03/2026 23:26
  * @Author AMEDE NESTOR HABA (Denzel)
  * @Package com.denzel.system.dto
  **/
 @Data
-public class PasswordUpdateRequest {
-    private String oldPassword;
-    private String newPassword;
+public class RenitialiazePasswordDTO {
+    String email;
+    String password;
 }

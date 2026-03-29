@@ -1,14 +1,33 @@
 package com.denzel.system.securtity.constants;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Encoders;
+import io.jsonwebtoken.security.Keys;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+import java.security.Key;
+
 /**
  * @creation 11/03/2026 21:26
  * @Author AMEDE NESTOR HABA (Denzel)
  * @Package com.denzel.system.securtity.constants
  **/
+@Configuration
+@Data
 public class SecurityConstants {
 
-    public static final String JWT_SECRET = "q3s6v9y$B&E)H@McQfTjWnZr4u7w!z%C*F-JaNdRgUkXp2s5v8y/A?D(G+KbPeShVmYq3t6w9z$C&E)H@McQfTjWnZr4u7x!A%D*G-JaNdRgUkXp2s5v8y/B?E(H+MbP";
-    public static final String TOKEN_HEADER = "Authorization";
-    public static final String TOKEN_PREFIX = "Bearer ";
-    public static final String CLAIM_KEY_AUTHORITIES = "scope";
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    @Value("${jwt.token-header}")
+    private String tokenHeader;
+
+    @Value("${jwt.token-prefix}")
+    private String tokenPrefix;
+
+    @Value("${jwt.claim-authorities}")
+    private String claimKeyAuthorities;
 }

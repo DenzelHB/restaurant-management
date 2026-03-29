@@ -1,5 +1,33 @@
 <mat-card class="m-2 p-0">
-    <div class="table-wrapper"> 
+
+    <div fxLayout="row wrap">
+        <div fxFlex="50" fxFlex.xl="16.6" fxFlex.lg="16.6" fxFlex.md="33.3" fxFlex.sm="33.3" class="p-2">
+            <mat-form-field appearance="outline" class="p-0 m-0">
+                <mat-label>Recherche</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Nom, email...">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" fxFlex.xl="16.6" fxFlex.lg="16.6" fxFlex.md="33.3" fxFlex.sm="33.3" class="p-2">
+            <mat-form-field appearance="outline" class="p-0 m-0">
+                <mat-label>Filtrer par statut</mat-label>
+                <mat-select (selectionChange)="filterByStatus($event.value)">
+                    <mat-option value="">Tous</mat-option>
+                    @for (s of statuses; track $index) {
+                        <mat-option [value]="s">{{ s }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="50" fxFlex.xl="16.6" fxFlex.lg="16.6" fxFlex.md="33.3" fxFlex.sm="33.3" class="p-2">
+            <mat-form-field appearance="outline" class="p-0 m-0">
+                <mat-label>Filtrer par date</mat-label>
+                <input matInput type="date" (change)="filterByDate($any($event.target).value)">
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div class="table-wrapper">
         <table mat-table [dataSource]="dataSource" matSort class="w-100">
         
             <!-- ID Column -->
@@ -9,33 +37,39 @@
             </ng-container>  
       
             <!-- Date Column -->
-            <ng-container matColumnDef="date">
+            <ng-container matColumnDef="reservationDate">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                <td mat-cell *matCellDef="let reservation"> {{reservation.date}}</td>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.reservationDate}}</td>
             </ng-container> 
         
             <!-- Time Column -->
-            <ng-container matColumnDef="time">
+            <ng-container matColumnDef="reservationTime">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
-                <td mat-cell *matCellDef="let reservation"> {{reservation.time}}</td>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.reservationTime}}</td>
             </ng-container>  
     
             <!-- Guests Column -->
-            <ng-container matColumnDef="guests">
+            <ng-container matColumnDef="numberOfPeople">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Guests </th>
-                <td mat-cell *matCellDef="let reservation"> {{reservation.guests}}</td>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.numberOfPeople}}</td>
             </ng-container> 
     
-            <!-- Table Number Column -->
-            <ng-container matColumnDef="tableNumber">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Table Number </th>
-                <td mat-cell *matCellDef="let reservation"> {{reservation.tableNumber}}</td>
-            </ng-container> 
-    
+            <!-- Fullname Column -->
+            <ng-container matColumnDef="clientFullName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.clientFullName}}</td>
+            </ng-container>
+
+            <!-- Phone -->
+            <ng-container matColumnDef="clientPhone">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone  </th>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.clientPhone}}</td>
+            </ng-container>
+
             <!-- Status Column -->
-            <ng-container matColumnDef="status.name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header="status.name"> Status </th>
-                <td mat-cell *matCellDef="let reservation"> {{reservation.status.name}}</td>
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="status"> Status </th>
+                <td mat-cell *matCellDef="let reservation"> {{reservation.status}}</td>
             </ng-container> 
 
             <!-- Action Column -->
@@ -47,28 +81,28 @@
                         <mat-select (selectionChange)="onStatusSelectionChange($event, reservation)">
                             <mat-option>---</mat-option> 
                             @for (status of statuses; track $index) {
-                                <mat-option [value]="status">{{status.name}}</mat-option>
+                                <mat-option [value]="status">{{status}}</mat-option>
                             }
                         </mat-select>  
                     </mat-form-field>  
                 </td>
             </ng-container> 
 
-            <!-- Assign Table Column -->
-            <ng-container matColumnDef="assignTable">
-                <th mat-header-cell *matHeaderCellDef> Assign Table </th>
-                <td mat-cell *matCellDef="let reservation">  
-                    <mat-form-field appearance="outline" class="p-0 m-0">
-                        <mat-label>Table</mat-label>
-                        <mat-select (selectionChange)="onTableSelectionChange($event, reservation)" [disabled]="reservation.status.id != 1">
-                            <mat-option>---</mat-option>
-                            @for (number of [1,2,3,4,5,6,7,8,9,10,11,12]; track number) {
-                                <mat-option [value]="number">{{number}}</mat-option>
-                            }
-                        </mat-select>  
-                    </mat-form-field>  
-                </td>
-            </ng-container>  
+<!--            &lt;!&ndash; Assign Table Column &ndash;&gt;-->
+<!--            <ng-container matColumnDef="assignTable">-->
+<!--                <th mat-header-cell *matHeaderCellDef> Assign Table </th>-->
+<!--                <td mat-cell *matCellDef="let reservation">  -->
+<!--                    <mat-form-field appearance="outline" class="p-0 m-0">-->
+<!--                        <mat-label>Table</mat-label>-->
+<!--                        <mat-select (selectionChange)="onTableSelectionChange($event, reservation)" [disabled]="reservation.status.id != 1">-->
+<!--                            <mat-option>-&#45;&#45;</mat-option>-->
+<!--                            @for (number of [1,2,3,4,5,6,7,8,9,10,11,12]; track number) {-->
+<!--                                <mat-option [value]="number">{{number}}</mat-option>-->
+<!--                            }-->
+<!--                        </mat-select>  -->
+<!--                    </mat-form-field>  -->
+<!--                </td>-->
+<!--            </ng-container>  -->
       
             <!-- View Column -->
             <ng-container matColumnDef="view">

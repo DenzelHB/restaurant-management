@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -9,6 +9,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { Settings, SettingsService } from '@services/settings.service';
+import {AuthService} from "@services/auth.service";
+import {LoginRequest} from "@models/auth.model";
+import {response} from "express";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
     selector: 'app-login',
@@ -30,7 +34,9 @@ export class LoginComponent implements OnInit {
   public bgImage: any;
   public settings: Settings;
 
-  constructor(public fb: FormBuilder, public router: Router, private sanitizer: DomSanitizer, public settingsService: SettingsService) {
+  private  authService = inject(AuthService);
+
+  constructor(public fb: FormBuilder, public router: Router, private sanitizer: DomSanitizer, public settingsService: SettingsService, public snackBar: MatSnackBar) {
     this.settings = this.settingsService.settings;
   }
 
@@ -45,8 +51,23 @@ export class LoginComponent implements OnInit {
 
   public onLoginFormSubmit(): void {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value)
-      this.router.navigate(['/']);
+
+        this.authService.login(this.loginForm.value as LoginRequest).subscribe({
+            next:(response)=>{
+                console.log(this.loginForm.value)
+                if (response?.content?.roles.includes('ADMIN') || response?.content?.roles.includes('STAFF')){
+                    this.router.navigate(['/admin/reservations'])
+                }else {
+                    this.snackBar.open(response?.message, '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+                    this.router.navigate(['/login']);
+                }
+            },
+            error:(err)=>{
+                console.log("erreur survenu lors de l'authentification", err);
+            }
+            }
+        )
+
     }
   }
 

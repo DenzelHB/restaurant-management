@@ -3,10 +3,10 @@ package com.denzel.system.service.impl;
 import com.denzel.base.BaseRepository;
 import com.denzel.base.BaseServiceImpl;
 import com.denzel.exception.BadRequestException;
-import com.denzel.system.dto.PasswordUpdateRequest;
-import com.denzel.system.dto.RegisterParam;
-import com.denzel.system.dto.RenitialiazePasswordRequest;
-import com.denzel.system.dto.UpdatePhoneRequest;
+import com.denzel.system.dto.PasswordUpdateDTO;
+import com.denzel.system.dto.RegisterDTO;
+import com.denzel.system.dto.RenitialiazePasswordDTO;
+import com.denzel.system.dto.UpdatePhoneDTO;
 import com.denzel.system.entity.User;
 import com.denzel.system.repository.RoleRepository;
 import com.denzel.system.repository.UserRepository;
@@ -40,20 +40,22 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     }
 
     @Override
-    public void createUser(RegisterParam param) throws RuntimeException {
+    public void createUser(RegisterDTO param) throws BadRequestException {
 
             if (userRepository.existsByEmail(param.getEmail())) {
-                throw new  RuntimeException("Cet Email est déjà utilisé");
+                throw new BadRequestException("Cet Email est déjà utilisé");
             }
             if(userRepository.existsByPhone(param.getPhone())){
-                throw new RuntimeException("Ce numéro de téléphone est déja utilisé");
+                throw new BadRequestException("Ce numéro de téléphone est déja utilisé");
             }
 
             User newUser = new User();
+            newUser.setFirstName(param.getFirstName());
+            newUser.setLastName(param.getLastName());
             newUser.setEmail(param.getEmail());
             newUser.setPhone(param.getPhone());
             newUser.setPassword(bCryptPasswordEncoder.encode(param.getPassword()));
-            newUser.setRoles(Set.of(roleRepository.findByName("DEFAULT").orElseThrow(()->new RuntimeException("Role non trouvé"))));
+            newUser.setRoles(Set.of(roleRepository.findByName("DEFAULT").orElseThrow(()->new RuntimeException("Default role not found"))));
             userRepository.save(newUser);
     }
 
@@ -62,15 +64,16 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 
     }
 
-
-
+//    @Override
+//    public Optional<User> findUserByEmail(String email) throws RuntimeException {
+//        return userRepository.findByEmail(email);
+//    }
     @Override
-    public Optional<User> findUserByEmail(String email) throws RuntimeException {
+    public  Optional<User> findUserByEmail(String email) throws RuntimeException {
         return userRepository.findByEmail(email);
     }
-
     @Override
-    public void updatePassword(PasswordUpdateRequest request, String username) {
+    public void updatePassword(PasswordUpdateDTO request, String username) {
 
     }
 
@@ -80,12 +83,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
     }
 
     @Override
-    public void updatePhone(String username, UpdatePhoneRequest request) {
+    public void updatePhone(String username, UpdatePhoneDTO request) {
 
     }
 
     @Override
-    public void renitialiazePassword(RenitialiazePasswordRequest request) {
+    public void renitialiazePassword(RenitialiazePasswordDTO request) {
 
     }
 

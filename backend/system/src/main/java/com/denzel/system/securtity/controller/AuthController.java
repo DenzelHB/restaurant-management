@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -48,12 +47,12 @@ public class AuthController {
         List<String> roles = Objects.requireNonNull(userDetails).getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
         var response = LoginResponse.builder()
-                .username(userDetails.getUsername())
-                .email(userDetails.getEmail())
-                .phone(userDetails.getPhone())
-                .roles(roles)
-                .token(token)
-                .build();
+                                    .username(userDetails.getUsername())
+                                    .email(userDetails.getEmail())
+                                    .phone(userDetails.getPhone())
+                                    .roles(roles)
+                                    .token(token)
+                                    .build();
 
         return new CustomHttpRequestResponse<>(CustomHttpStatus.SUCCESS, response);
     }

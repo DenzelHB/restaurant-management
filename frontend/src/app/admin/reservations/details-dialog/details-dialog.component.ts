@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Reservation } from '@models/app.models';
 import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { DialogHeaderControlsComponent } from '@shared/dialog-header-controls/dialog-header-controls.component';
+import {ReservationModel} from "@models/reservation.model";
 
 @Component({
     selector: 'app-details-dialog',
@@ -18,5 +19,5 @@ import { DialogHeaderControlsComponent } from '@shared/dialog-header-controls/di
 })
 export class DetailsDialogComponent {
   constructor(public dialogRef: MatDialogRef<DetailsDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public reservation: Reservation) { }
+              @Inject(MAT_DIALOG_DATA) public reservation: ReservationModel) { }
 }
