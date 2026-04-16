@@ -3,19 +3,19 @@
 Application de gestion de restaurant développée avec **Angular**, **Spring Boot** et **PostgreSQL**, basée sur une **architecture monolithe**.  
 Le projet est désormais **open source** afin de permettre à la communauté de contribuer à son évolution.
 
-👉 **Fonctionnalité actuellement complète : la gestion des réservations**
+ **Fonctionnalité actuellement complète : la gestion des réservations**
 
-## ✨ Fonctionnalités
+##  Fonctionnalités
 
-### ✅ Implémentées
+###  Implémentées
 
-*   📅 **Gestion des réservations**
+*    **Gestion des réservations**
     *   Création de réservations
     *   Consultation des réservations
     *   Validation des créneaux selon la disponibilité
     *   Persistance des données en base PostgreSQL
 
-### 🚧 En cours / à venir
+###  En cours / à venir
 
 *   Gestion des clients
 *   Gestion des tables
@@ -24,7 +24,7 @@ Le projet est désormais **open source** afin de permettre à la communauté de 
 *   Tableau de bord (statistiques)
 *   Notifications (email / SMS)
 
-## 🛠️ Stack Technique
+##  Stack Technique
 
 ### Frontend
 
@@ -47,9 +47,9 @@ Le projet est désormais **open source** afin de permettre à la communauté de 
 *   **Monolithe**
 *   Frontend et backend séparés mais intégrés dans un même projet global
 
-## 🤝 Contribuer
+##  Contribuer
 
-Ce projet est **ouvert à la contribution** 🎉
+Ce projet est **ouvert à la contribution** 
 
 Les contributions sont les bienvenues :
 
@@ -68,7 +68,7 @@ Les contributions sont les bienvenues :
 
 Merci de respecter les bonnes pratiques et d’ajouter des commentaires clairs.
 
-## 📌 Objectif du projet
+##  Objectif du projet
 
 Ce projet a pour but de :
 
@@ -76,7 +76,7 @@ Ce projet a pour but de :
 *   permettre aux développeurs de **pratiquer Angular + Spring Boot**
 *   encourager la **collaboration open source**
 
-## 📄 Licence
+##  Licence
 
 Ce projet est sous licence **MIT** (ou à adapter selon ton choix).
 
