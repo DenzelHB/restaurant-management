@@ -1,4 +1,4 @@
-# 🍽️ Restaurant Management System
+#  Restaurant Management System
 
 Application de gestion de restaurant développée avec **Angular**, **Spring Boot** et **PostgreSQL**, basée sur une **architecture monolithe**.  
 Le projet est désormais **open source** afin de permettre à la communauté de contribuer à son évolution.
