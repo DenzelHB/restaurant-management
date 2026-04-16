@@ -78,6 +78,6 @@ Ce projet a pour but de :
 
 ##  Licence
 
-Ce projet est sous licence **MIT** (ou à adapter selon ton choix).
+Ce projet est sous licence **MIT** .
 
  
