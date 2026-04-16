@@ -1,5 +1,6 @@
-package com.denzel.entity;
+package com.denzel.system.entity;
 
+import com.denzel.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,20 +19,20 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Reservation {
+public class Reservation extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private LocalDate reservationDate;
     private LocalTime reservationTime;
     private Integer numberOfPeople;
     private String status;
 
-    private String ClientFullName;
-    private String ClientEmail;
-    private String ClientPhone;
+    private String clientFullName;
+    private String clientEmail;
+    private String clientPhone;
 
     private String clientComment;
 }

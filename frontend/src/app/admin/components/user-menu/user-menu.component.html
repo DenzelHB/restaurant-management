@@ -18,10 +18,10 @@
             <mat-icon>edit</mat-icon>
             <span>Edit Profile</span> 
         </a>
-        <a mat-menu-item routerLink="/admin"> 
-            <mat-icon>settings</mat-icon>
-            <span>Settings</span> 
-        </a>
+<!--        <a mat-menu-item routerLink="/admin"> -->
+<!--            <mat-icon>settings</mat-icon>-->
+<!--            <span>Settings</span> -->
+<!--        </a>-->
         <a mat-menu-item routerLink="/admin"> 
             <mat-icon>lock</mat-icon>
             <span>Lock screen</span> 
@@ -31,7 +31,7 @@
             <span>Help</span> 
         </a>
         <div class="divider"></div>
-        <a mat-menu-item routerLink="/login"> 
+        <a mat-menu-item (click)="logOut()">
             <mat-icon>power_settings_new</mat-icon>
             <span>Log out</span> 
         </a>

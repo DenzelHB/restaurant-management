@@ -1,4 +1,4 @@
-package com.denzel.entity;
+package com.denzel.system.entity;
 
 import com.denzel.base.BaseEntity;
 import jakarta.persistence.*;
@@ -19,16 +19,15 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class User extends BaseEntity implements Serializable {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
+    private String phone;
     private String password;
     private Boolean enabled;
 
@@ -38,5 +37,7 @@ public class User extends BaseEntity implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name="role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
+
+
 }

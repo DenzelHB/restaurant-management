@@ -24,9 +24,9 @@ export class AppComponent {
               public translate: TranslateService,
               private domHandlerService: DomHandlerService) {
     this.settings = this.settingsService.settings;
-    translate.addLangs(['en', 'de', 'fr', 'ru', 'tr']);
-    translate.setDefaultLang('en');
-    translate.use('en');
+    translate.addLangs(['en', 'fr']);
+    translate.setDefaultLang('fr');
+    translate.use('fr');
   }
 
   ngAfterViewInit() {

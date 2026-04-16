@@ -2,9 +2,9 @@
     <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-3" ngClass.sm="mt-1" ngClass.xs="mt-1">
         <mat-form-field appearance="outline" class="w-100"> 
             <mat-label>Full Name</mat-label>
-            <input matInput placeholder="Your Full Name" formControlName="fullName" required>
+            <input matInput placeholder="Your Full Name" formControlName="clientFullName" required>
             <mat-icon matSuffix class="text-muted">person</mat-icon>
-            @if (form.controls.fullName.errors?.required) {
+            @if (form.controls.clientFullName.errors?.required) {
                 <mat-error>Full Name is required</mat-error>
             } 
         </mat-form-field> 
@@ -12,9 +12,9 @@
     <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-3" ngClass.sm="mt-1" ngClass.xs="mt-1"> 
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Phone Number</mat-label>
-            <input matInput placeholder="Your Phone Number" formControlName="phoneNumber" required appPhoneMask>
+            <input matInput placeholder="Your Phone Number" formControlName="clientPhone" required appPhoneMask>
             <mat-icon matSuffix class="text-muted">call</mat-icon>
-            @if (form.controls.phoneNumber.errors?.required) {
+            @if (form.controls.clientPhone.errors?.required) {
                 <mat-error>Phone Number is required</mat-error>
             }  
         </mat-form-field> 
@@ -22,13 +22,13 @@
     <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-3" ngClass.sm="mt-1" ngClass.xs="mt-1"> 
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Email</mat-label>
-            <input matInput placeholder="Your Email" formControlName="email" required>
+            <input matInput placeholder="Your Email" formControlName="clientEmail" required>
             <mat-icon matSuffix class="text-muted">email</mat-icon>
             <mat-error>
-                @if (form.controls.email.errors?.required) {
+                @if (form.controls.clientEmail.errors?.required) {
                     Email is required
                 }
-                @if (form.controls.email.hasError('invalidEmail')) {
+                @if (form.controls.clientEmail.hasError('invalidEmail')) {
                     Invalid email address
                 }
             </mat-error> 
@@ -37,10 +37,10 @@
     <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-3" ngClass.sm="mt-1" ngClass.xs="mt-1">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Date</mat-label>
-            <input matInput placeholder="Pick a date" formControlName="date" required [matDatepicker]="datePicker" [min]="today" appMaskDate>
+            <input matInput placeholder="Pick a date" formControlName="reservationDate" required [matDatepicker]="datePicker" [min]="today" appMaskDate>
             <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
             <mat-datepicker #datePicker></mat-datepicker>
-            @if (form.controls.date.errors?.required) {
+            @if (form.controls.reservationDate.errors?.required) {
                 <mat-error>Date is required</mat-error>
             }   
         </mat-form-field> 
@@ -48,13 +48,13 @@
     <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-3" ngClass.sm="mt-1" ngClass.xs="mt-1">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Time</mat-label> 
-            <mat-select formControlName="time" required> 
+            <mat-select formControlName="reservationTime" required>
                 @for (hour of hours; track $index) {
                     <mat-option [value]="hour">{{hour}}</mat-option>
                 }                
             </mat-select>
             <mat-icon matSuffix class="text-muted">schedule</mat-icon>
-            @if (form.controls.time.errors?.required) {
+            @if (form.controls.reservationTime.errors?.required) {
                 <mat-error>Time is required</mat-error>
             }   
         </mat-form-field>  
@@ -62,9 +62,9 @@
     <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-3" ngClass.sm="mt-1" ngClass.xs="mt-1">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Guests</mat-label>
-            <input matInput placeholder="How many of you?" formControlName="guests" required onlyNumber>
+            <input matInput placeholder="How many of you?" formControlName="numberOfPeople" required onlyNumber>
             <mat-icon matSuffix class="text-muted">group</mat-icon>
-            @if (form.controls.guests.errors?.required) {
+            @if (form.controls.numberOfPeople.errors?.required) {
                 <mat-error>Guests is required</mat-error>
             }   
         </mat-form-field> 
@@ -72,18 +72,18 @@
     <div fxFlex="100" class="px-3 mt-1">
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Message</mat-label> 
-            <textarea matInput placeholder="Your Message" formControlName="message" rows="6"></textarea>
-            @if (form.controls.message.errors?.required) {
+            <textarea matInput placeholder="Your Message" formControlName="clientComment" rows="6"></textarea>
+            @if (form.controls.clientComment.errors?.required) {
                 <mat-error>Message is required</mat-error>
             }   
         </mat-form-field>
     </div>  
     <div class="w-100 py-2 text-center">
-        <button mat-raised-button color="primary" type="submit" class="uppercase">Make reservation</button>
+        <button mat-raised-button color="primary" type="submit" class="uppercase">Reservez !</button>
     </div>  
 </form>
 <div class="reservation-form-footer primary-color">
-    You can also call: (+100) 123 456 7890 to make a reservation
+    Vous pouvez également appeler le : 623 327 130 pour reserver
 </div>         
                 
  

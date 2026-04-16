@@ -25,7 +25,7 @@ export class Settings {
 export class SettingsService {
   public settings = new Settings(
     'Mox',    // theme name
-    'red',       // red, green, blue, pink, purple, grey, orange-dark, custom
+    'purple',       // red, green, blue, pink, purple, grey, orange-dark, custom
     1,           // 1   
     true,        // true = sticky, false = not sticky
     'image',     // default, image, carousel
